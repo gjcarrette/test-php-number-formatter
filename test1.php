@@ -1,5 +1,11 @@
 <?php
 
+function test0() {
+ $x = new \ReflectionExtension('intl');
+ $x->info();
+ echo "\n";
+}
+
 function test1($l = 'fr_CA', $m = 92345.67) {
  echo "Locale::setDefault($l) = " . var_export(\Locale::setDefault($l), true) . "\n";
  echo "Locale::getDefault() = " . \Locale::getDefault() . "\n";
@@ -12,6 +18,7 @@ function test1($l = 'fr_CA', $m = 92345.67) {
  echo "format($m) = " . var_export($r, true) . " [$h]\n\n";
 }
 
+test0();
 test1('fr_CA');
 test1('en_CA');
 test1('fr_US');
