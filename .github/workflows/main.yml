@@ -1,0 +1,59 @@
+# -*- mode:yaml; indent-tabs-mode: nil; -*-
+---
+name: CI
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'g*'
+  pull_request:
+    branches:
+      - 'main'
+      - 'g*'
+
+jobs:
+  ubuntu:
+    name: Test in PHP version
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "7.4"
+          - "8.1"
+
+    steps:
+      - name: Install dependencies
+        run: |
+          lsb_release -a
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "${{ matrix.php-version }}"
+          coverage: "none"
+          tools: "phpize, php-config"
+      - name: PHP Info
+        run: php -info
+      - name: setup log dirs
+        run: >-
+          mkdir artifacts
+      - name: collect package info
+        run: |
+         lsb_release -a > artifacts/environment.txt
+         echo "" >> artifacts/environment.txt
+         php --version >> artifacts/environment.txt
+         apt list --installed > artifacts/installed.txt
+         php --info > artifacts/php-info.txt
+      - name: Run tests
+        run: |
+          php -f test1.php > artifacts/test1.txt
+      - name: publish artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with: 
+          name: artifacts-of-test-${{ matrix.php-version }}
+          path: artifacts
