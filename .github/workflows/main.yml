@@ -50,7 +50,7 @@ jobs:
          php --info > artifacts/php-info.txt
       - name: Run tests
         run: |
-          php -f test1.php > artifacts/test1.txt
+          php -f test1.php | tee artifacts/test1.txt
       - name: publish artifacts
         if: always()
         uses: actions/upload-artifact@v3
