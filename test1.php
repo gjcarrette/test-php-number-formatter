@@ -1,6 +1,12 @@
 <?php
 
 function test0() {
+ if (function_exists('posix_uname')) {
+  $u = posix_uname();
+  unset($u['nodename']);
+  unset($u['domainname']);
+  echo json_encode($u, JSON_PRETTY_PRINT) . "\n";
+ }
  $x = new \ReflectionExtension('intl');
  $x->info();
  echo "\n";
