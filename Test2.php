@@ -28,8 +28,11 @@ test0();
 // See also https://en.wikipedia.org/wiki/Dollar
 // https://en.wikipedia.org/wiki/Pound_(currency)
 test1('fr_CA', 92345.67, 'USD');
+test1('fr_FR', 92345.67, 'USD');
 test1('fr_CA', 92345.67, 'AUD');
+test1('fr_FR', 92345.67, 'AUD');
 test1('fr_CA', 92345.67, 'CAD');
+test1('fr_FR', 92345.67, 'CAD');
 test1('fr_CA', 92345.67, 'EUR');
 test1('fr_CA', 92345.67, 'GBP');
 // Do not know for sure if these currency names are valid in this context.
