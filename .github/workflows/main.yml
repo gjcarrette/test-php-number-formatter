@@ -51,6 +51,7 @@ jobs:
       - name: Run tests
         run: |
           php -f test1.php | tee artifacts/test1.txt
+          php -f Test2.php | tee artifacts/test2.txt
       - name: publish artifacts
         if: always()
         uses: actions/upload-artifact@v3
